@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>For Someone Special</title>
+    <style>
+        :root {
+            --bg-dark: #0a0a0a;
+            --primary-pink: #ff4d8d;
+            --secondary-pink: #ff85a1;
+            --card-bg: #1a1a1a;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: var(--bg-dark);
+            color: white;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            text-align: center;
+            overflow-x: hidden;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 400px;
+        }
+
+        /* Initial Screen */
+        #start-screen {
+            display: block;
+        }
+
+        .heart-icon {
+            font-size: 50px;
+            color: var(--primary-pink);
+            margin-bottom: 20px;
+            animation: pulse 1.5s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+
+        button {
+            background-color: var(--primary-pink);
+            border: none;
+            color: white;
+            padding: 12px 24px;
+            border-radius: 25px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: 0.3s;
+            margin-top: 20px;
+        }
+
+        button:hover {
+            background-color: var(--secondary-pink);
+            box-shadow: 0 0 15px var(--primary-pink);
+        }
+
+        /* Loading/Cuteness Meter */
+        #loading-screen {
+            display: none;
+        }
+
+        .progress-container {
+            width: 100%;
+            height: 20px;
+            background: #333;
+            border-radius: 10px;
+            margin: 20px 0;
+            overflow: hidden;
+        }
+
+        #progress-bar {
+            width: 0%;
+            height: 100%;
+            background: linear-gradient(90deg, var(--primary-pink), var(--secondary-pink));
+            transition: width 0.1s linear;
+        }
+
+        /* Main Content */
+        #main-content {
+            display: none;
+        }
+
+        .message-card {
+            background: var(--card-bg);
+            margin: 10px 0;
+            padding: 15px;
+            border-radius: 12px;
+            border: 1px solid #333;
+            cursor: pointer;
+            transition: 0.3s;
+            position: relative;
+        }
+
+        .message-card .heart-mask {
+            font-size: 20px;
+        }
+
+        .message-card .actual-text {
+            display: none;
+            font-weight: bold;
+            color: var(--secondary-pink);
+        }
+
+        .hidden { display: none; }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <div id="start-screen">
+            <div class="heart-icon">❤️</div>
+            <h1>Hey Beautiful</h1>
+            <p>Do you even know how cute you are?</p>
+            <button onclick="startApp()">Open My Heart</button>
+        </div>
+
+        <div id="loading-screen">
+            <h2 id="status-text">Measuring your cuteness...</h2>
+            <h1 id="percentage">0%</h1>
+            <div class="progress-container">
+                <div id="progress-bar"></div>
+            </div>
+            <p id="warning-text" style="color: yellow; display: none;">⚠️ WARNING: TOO CUTE TO HANDLE</p>
+        </div>
+
+        <div id="main-content">
+            <h2>Just for you</h2>
+            <p>Tap each one to reveal</p>
+            
+            <div class="message-card" onclick="reveal(this)">
+                <span class="heart-mask">❤️</span>
+                <span class="actual-text">You look adorable</span>
+            </div>
+            <div class="message-card" onclick="reveal(this)">
+                <span class="heart-mask">❤️</span>
+                <span class="actual-text">You have the sweetest vibe</span>
+            </div>
+            <div class="message-card" onclick="reveal(this)">
+                <span class="heart-mask">❤️</span>
+                <span class="actual-text">You make everything feel lighter</span>
+            </div>
+            <div class="message-card" onclick="reveal(this)">
+                <span class="heart-mask">❤️</span>
+                <span class="actual-text">You are naturally charming</span>
+            </div>
+
+            <p style="margin-top: 30px; font-style: italic;">You'll always be special to me</p>
+        </div>
+    </div>
+
+    <script>
+        function startApp() {
+            document.getElementById('start-screen').style.display = 'none';
+            document.getElementById('loading-screen').style.display = 'block';
+            runMeter();
+        }
+
+        function runMeter() {
+            let width = 0;
+            const bar = document.getElementById('progress-bar');
+            const percText = document.getElementById('percentage');
+            const warning = document.getElementById('warning-text');
+
+            let interval = setInterval(() => {
+                if (width >= 120) {
+                    clearInterval(interval);
+                    setTimeout(() => {
+                        document.getElementById('loading-screen').style.display = 'none';
+                        document.getElementById('main-content').style.display = 'block';
+                    }, 1500);
+                } else {
+                    width++;
+                    bar.style.width = (width > 100 ? 100 : width) + '%';
+                    percText.innerText = width + '%';
+                    
+                    if (width > 100) {
+                        warning.style.display = 'block';
+                        percText.style.color = '#ff4d8d';
+                    }
+                }
+            }, 40);
+        }
+
+        function reveal(card) {
+            card.querySelector('.heart-mask').style.display = 'none';
+            card.querySelector('.actual-text').style.display = 'block';
+            card.style.borderColor = '#ff4d8d';
+        }
+    </script>
+</body>
+</html>
