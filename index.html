@@ -27,7 +27,6 @@
 
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
-        /* Fixed Image Section */
         .img-circle {
             width: 160px; height: 160px;
             background: #200a18; border-radius: 50%;
@@ -36,7 +35,8 @@
             box-shadow: 0 0 20px var(--shadow);
             overflow: hidden;
         }
-        .img-circle img { width: 70%; }
+        .img-circle img { width: 70%; animation: pulse 2s infinite; }
+        @keyframes pulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.1); } }
 
         .hey-text {
             font-family: 'Dancing Script', cursive;
@@ -44,9 +44,6 @@
             margin: 10px 0; text-shadow: 0 0 15px var(--shadow);
         }
 
-        .sub-text { opacity: 0.8; font-size: 1.1rem; margin-bottom: 30px; }
-
-        /* Modern Pink Button */
         .main-btn {
             background: var(--pink); border: none; color: white;
             padding: 15px 45px; border-radius: 50px;
@@ -54,66 +51,78 @@
             box-shadow: 0 4px 20px var(--shadow);
             transition: 0.3s;
         }
-        .main-btn:active { transform: scale(0.95); }
 
-        /* Loading Bar Styles */
         .bar-wrap { width: 100%; height: 12px; background: #222; border-radius: 10px; margin: 25px 0; overflow: hidden; }
-        #bar-fill { height: 100%; width: 0%; background: var(--pink); box-shadow: 0 0 10px var(--pink); }
-        
-        /* Floating Hearts */
-        .heart-particle { position: fixed; bottom: -20px; pointer-events: none; animation: floatUp 4s linear forwards; }
-        @keyframes floatUp { to { transform: translateY(-110vh) rotate(360deg); opacity: 0; } }
+        #bar-fill { height: 100%; width: 0%; background: var(--pink); }
+
+        /* Floating Music Note Animation */
+        .music-note {
+            position: fixed; color: var(--pink); font-size: 20px;
+            pointer-events: none; animation: flyUp 3s linear forwards;
+            z-index: 5;
+        }
+        @keyframes flyUp { to { transform: translateY(-100vh) translateX(50px); opacity: 0; } }
     </style>
 </head>
 <body>
 
+    <audio id="player" loop>
+        <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
+    </audio>
+
     <div class="container">
         <div id="s1" class="screen active">
             <div class="img-circle">
-                <img src="https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Smilies/Smiling%20Face%20with%20Hearts.png" alt="Cute Icon">
+                <img src="https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Smilies/Smiling%20Face%20with%20Hearts.png">
             </div>
             <h1 class="hey-text">Hey Beautiful</h1>
-            <p class="sub-text">I have a secret to tell you...</p>
-            <button class="main-btn" onclick="startLoading()">Open My Heart</button>
+            <p style="margin-bottom: 30px;">I have a secret to tell you...</p>
+            <button class="main-btn" onclick="startExperience()">Open My Heart</button>
         </div>
 
         <div id="s2" class="screen">
-            <h2 id="status-msg">Measuring your cuteness...</h2>
+            <h2>Measuring your cuteness...</h2>
             <h1 id="perc-display" style="font-size: 3.5rem;">0%</h1>
             <div class="bar-wrap"><div id="bar-fill"></div></div>
-            <p id="warn" style="color: #ffeb3b; font-weight: bold; min-height: 20px;"></p>
+            <p id="warn" style="color: #ffeb3b; font-weight: bold;"></p>
         </div>
 
         <div id="s3" class="screen">
-            <h1 class="hey-text" style="font-size: 3rem;">You Win!</h1>
-            <p style="background: rgba(255,255,255,0.1); padding: 20px; border-radius: 15px; line-height: 1.6;">
-                I just wanted to remind you how amazing you are. Your smile makes everything better, and you deserve the world! 💖
+            <h1 class="hey-text" style="font-size: 3rem;">You're 120% Cute!</h1>
+            <p style="background: rgba(255,255,255,0.1); padding: 20px; border-radius: 15px;">
+                I just wanted to remind you how amazing you are. You deserve all the happiness in the world! 💖
             </p>
-            <button class="main-btn" style="margin-top: 20px;" onclick="location.reload()">See it again</button>
         </div>
     </div>
 
     <script>
-        function startLoading() {
+        const audio = document.getElementById('player');
+
+        function startExperience() {
+            // Play Music
+            audio.play().catch(e => console.log("Music failed to start:", e));
+            
+            // Switch Screens
             document.getElementById('s1').classList.remove('active');
             document.getElementById('s2').classList.add('active');
 
             let val = 0;
-            let bar = document.getElementById('bar-fill');
-            let perc = document.getElementById('perc-display');
-            let warn = document.getElementById('warn');
+            const bar = document.getElementById('bar-fill');
+            const perc = document.getElementById('perc-display');
+            const warn = document.getElementById('warn');
 
-            let timer = setInterval(() => {
+            // Start Note Animation
+            setInterval(createNote, 500);
+
+            const timer = setInterval(() => {
                 val++;
                 if (val <= 100) bar.style.width = val + '%';
                 perc.innerText = val + '%';
 
-                if (val === 101) warn.innerText = "⚠️ WARNING: TOO CUTE!";
-                if (val === 110) warn.innerText = "⚠️ SYSTEM OVERLOAD!!";
-
+                if (val === 105) warn.innerText = "⚠️ WARNING: TOO CUTE!";
                 if (val >= 120) {
                     clearInterval(timer);
-                    confetti({ particleCount: 150, spread: 70, origin: { y: 0.6 }, colors: ['#ff4d8d', '#ffffff'] });
+                    confetti({ particleCount: 150, spread: 70, origin: { y: 0.6 } });
                     setTimeout(() => {
                         document.getElementById('s2').classList.remove('active');
                         document.getElementById('s3').classList.add('active');
@@ -122,17 +131,15 @@
             }, 50);
         }
 
-        // Background Hearts
-        setInterval(() => {
-            const heart = document.createElement('div');
-            heart.innerHTML = '❤️';
-            heart.className = 'heart-particle';
-            heart.style.left = Math.random() * 100 + 'vw';
-            heart.style.fontSize = Math.random() * 20 + 10 + 'px';
-            heart.style.opacity = Math.random();
-            document.body.appendChild(heart);
-            setTimeout(() => heart.remove(), 4000);
-        }, 400);
+        function createNote() {
+            const note = document.createElement('div');
+            note.innerHTML = '🎵';
+            note.className = 'music-note';
+            note.style.left = Math.random() * 100 + 'vw';
+            note.style.bottom = '0';
+            document.body.appendChild(note);
+            setTimeout(() => note.remove(), 3000);
+        }
     </script>
 </body>
 </html>
