@@ -5,31 +5,26 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>A Quiet Moment</title>
     <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;500&family=Sacramento&display=swap" rel="stylesheet">
 </head>
 <body>
-
     <div class="stars"></div>
+    <div class="grain"></div>
 
-    <main class="container">
-        <section class="hero fade-in">
-            <div class="chibi-container">
-                <div class="chibi">
+    <main class="cinematic-container">
+        <div id="character-stage" class="hidden">
+            <div class="chibi">
+                <div class="face">
                     <div class="eyes"></div>
-                    <div class="blush"></div>
+                    <div class="blush" id="blush-heart"></div>
                 </div>
             </div>
-            <h1 class="cursive">Hey Beautiful 🌸</h1>
-        </section>
+            <div class="glow-aura"></div>
+        </div>
 
-        <section class="interaction-zone" id="tap-area">
-            <p id="instruction">Tap gently...</p>
-            <div id="message-display" class="message-box"></div>
-        </section>
+        <div id="text-overlay" class="text-fade"></div>
 
-        <footer class="final-note">
-            <p>A quiet moment for you, with no expectations.</p>
-            <span class="heart-glow">✨</span>
-        </footer>
+        <button id="replay-btn" class="hidden" onclick="startExperience()">Replay</button>
     </main>
 
     <script src="script.js"></script>
