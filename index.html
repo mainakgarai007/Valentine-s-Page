@@ -3,162 +3,135 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>For Someone Special ❤️</title>
+    <title>For You ❤️</title>
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap');
+
         :root {
-            --bg: #0a0a0a;
+            --bg: #0d0d0d;
             --pink: #ff4d8d;
-            --glass: rgba(255, 255, 255, 0.1);
+            --shadow: rgba(255, 77, 141, 0.5);
         }
 
         body {
             margin: 0; background-color: var(--bg); color: white;
-            font-family: 'Segoe UI', Tahoma, sans-serif;
+            font-family: 'Segoe UI', sans-serif;
             display: flex; justify-content: center; align-items: center;
             min-height: 100vh; overflow: hidden;
         }
 
-        /* Background floating hearts */
-        .hearts-bg { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; }
-
         .container { width: 90%; max-width: 400px; text-align: center; z-index: 10; }
-        .screen { display: none; animation: scaleUp 0.6s ease-out; }
-        .active { display: flex; flex-direction: column; align-items: center; }
+        .screen { display: none; flex-direction: column; align-items: center; animation: fadeIn 0.8s ease; }
+        .active { display: flex; }
 
-        @keyframes scaleUp { from { opacity: 0; transform: scale(0.9); } to { opacity: 1; transform: scale(1); } }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
-        /* --- CUTE INTRO SCREEN --- */
-        .cute-circle {
-            width: 180px; height: 180px;
-            background: #2a0a20; border-radius: 50%;
+        /* Fixed Image Section */
+        .img-circle {
+            width: 160px; height: 160px;
+            background: #200a18; border-radius: 50%;
             display: flex; justify-content: center; align-items: center;
-            border: 3px solid #4a1a3a; margin-bottom: 25px;
-            overflow: hidden; box-shadow: 0 0 30px rgba(255, 77, 141, 0.3);
+            border: 2px solid #3d152a; margin-bottom: 20px;
+            box-shadow: 0 0 20px var(--shadow);
+            overflow: hidden;
         }
-        .cute-circle img { width: 80%; animation: bobble 2s ease-in-out infinite; }
-        @keyframes bobble { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
+        .img-circle img { width: 70%; }
 
-        .title-text { font-family: 'Brush Script MT', cursive; font-size: 3.5rem; color: var(--pink); margin: 10px 0; text-shadow: 0 0 10px rgba(255, 77, 141, 0.5); }
-
-        /* --- PROGRESS BAR --- */
-        .bar-container { width: 100%; height: 14px; background: #222; border-radius: 10px; margin: 20px 0; overflow: hidden; }
-        #bar-fill { height: 100%; width: 0%; background: linear-gradient(90deg, #ff4d8d, #ff85a1); }
-        .warn-msg { color: #ffeb3b; font-weight: bold; font-size: 0.8rem; height: 20px; }
-
-        /* --- REVEAL CARDS --- */
-        .msg-card {
-            background: var(--glass); width: 100%; padding: 18px; margin: 10px 0;
-            border-radius: 15px; border: 1px solid rgba(255,255,255,0.05);
-            cursor: pointer; transition: 0.3s;
-        }
-        .msg-card:active { transform: scale(0.95); }
-        .secret-txt { display: none; color: var(--pink); font-weight: bold; }
-
-        /* --- FINAL LETTER --- */
-        .letter { background: white; color: #333; padding: 25px; border-radius: 10px; text-align: left; line-height: 1.6; font-size: 0.95rem; }
-
-        button {
-            background: var(--pink); border: none; color: white; padding: 15px 35px;
-            border-radius: 30px; font-weight: bold; cursor: pointer; margin-top: 15px;
-            box-shadow: 0 5px 15px rgba(255, 77, 141, 0.4);
+        .hey-text {
+            font-family: 'Dancing Script', cursive;
+            font-size: 4rem; color: var(--pink);
+            margin: 10px 0; text-shadow: 0 0 15px var(--shadow);
         }
 
-        #music-btn { position: fixed; top: 20px; right: 20px; font-size: 24px; cursor: pointer; opacity: 0.6; }
+        .sub-text { opacity: 0.8; font-size: 1.1rem; margin-bottom: 30px; }
+
+        /* Modern Pink Button */
+        .main-btn {
+            background: var(--pink); border: none; color: white;
+            padding: 15px 45px; border-radius: 50px;
+            font-size: 1.1rem; font-weight: bold; cursor: pointer;
+            box-shadow: 0 4px 20px var(--shadow);
+            transition: 0.3s;
+        }
+        .main-btn:active { transform: scale(0.95); }
+
+        /* Loading Bar Styles */
+        .bar-wrap { width: 100%; height: 12px; background: #222; border-radius: 10px; margin: 25px 0; overflow: hidden; }
+        #bar-fill { height: 100%; width: 0%; background: var(--pink); box-shadow: 0 0 10px var(--pink); }
+        
+        /* Floating Hearts */
+        .heart-particle { position: fixed; bottom: -20px; pointer-events: none; animation: floatUp 4s linear forwards; }
+        @keyframes floatUp { to { transform: translateY(-110vh) rotate(360deg); opacity: 0; } }
     </style>
 </head>
 <body>
 
-    <audio id="loveSong" loop><source src="https://www.bensound.com/bensound-music/bensound-love.mp3" type="audio/mpeg"></audio>
-    <div id="music-btn" onclick="toggleMusic()">🎵</div>
-    <div class="hearts-bg" id="hearts-container"></div>
-
     <div class="container">
         <div id="s1" class="screen active">
-            <div class="cute-circle">
-                <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExOHp4ZzRndmNiaHpxZzRndmNiaHpxZzRndmNiaHpxZzRndmNiaHpxJmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZCZjdD1z/L95W98l8kPO7yG6pBy/giphy.gif" alt="Cute character">
+            <div class="img-circle">
+                <img src="https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Smilies/Smiling%20Face%20with%20Hearts.png" alt="Cute Icon">
             </div>
-            <h1 class="title-text">Hey Beautiful</h1>
-            <p style="opacity: 0.8;">I have a secret to tell you...</p>
-            <button onclick="startApp()">Open My Heart</button>
+            <h1 class="hey-text">Hey Beautiful</h1>
+            <p class="sub-text">I have a secret to tell you...</p>
+            <button class="main-btn" onclick="startLoading()">Open My Heart</button>
         </div>
 
         <div id="s2" class="screen">
-            <h2>Measuring your cuteness...</h2>
-            <h1 id="perc">0%</h1>
-            <div class="bar-container"><div id="bar-fill"></div></div>
-            <div id="warn" class="warn-msg"></div>
+            <h2 id="status-msg">Measuring your cuteness...</h2>
+            <h1 id="perc-display" style="font-size: 3.5rem;">0%</h1>
+            <div class="bar-wrap"><div id="bar-fill"></div></div>
+            <p id="warn" style="color: #ffeb3b; font-weight: bold; min-height: 20px;"></p>
         </div>
 
         <div id="s3" class="screen">
-            <h2>Just for you</h2>
-            <p style="font-size: 0.8rem; margin-bottom: 15px;">Tap to reveal messages</p>
-            <div class="msg-card" onclick="reveal(this)"><span>❤️</span><span class="secret-txt">You look adorable today</span></div>
-            <div class="msg-card" onclick="reveal(this)"><span>❤️</span><span class="secret-txt">You have the sweetest vibe</span></div>
-            <div class="msg-card" onclick="reveal(this)"><span>❤️</span><span class="secret-txt">You make things feel lighter</span></div>
-            <button onclick="next(3)">One more thing →</button>
-        </div>
-
-        <div id="s4" class="screen">
-            <div class="letter">
-                <p>I just wanted to tell you something... you really are special in a way that's hard to explain.</p>
-                <br>
-                <p>There's a softness in the way you talk, a sweetness in the way you smile, and something genuine about you that just feels good to be around.</p>
-                <br>
-                <p>You're just you, and that's what makes you so lovely. ✨</p>
-            </div>
-            <p style="margin-top: 20px; font-weight: bold;">You'll always be special to me</p>
+            <h1 class="hey-text" style="font-size: 3rem;">You Win!</h1>
+            <p style="background: rgba(255,255,255,0.1); padding: 20px; border-radius: 15px; line-height: 1.6;">
+                I just wanted to remind you how amazing you are. Your smile makes everything better, and you deserve the world! 💖
+            </p>
+            <button class="main-btn" style="margin-top: 20px;" onclick="location.reload()">See it again</button>
         </div>
     </div>
 
     <script>
-        const song = document.getElementById('loveSong');
-        function toggleMusic() { return song.paused ? song.play() : song.pause(); }
+        function startLoading() {
+            document.getElementById('s1').classList.remove('active');
+            document.getElementById('s2').classList.add('active');
 
-        function next(curr) {
-            document.getElementById(`s${curr}`).classList.remove('active');
-            document.getElementById(`s${curr+1}`).classList.add('active');
-        }
-
-        function startApp() {
-            song.play();
-            next(1);
             let val = 0;
             let bar = document.getElementById('bar-fill');
-            let perc = document.getElementById('perc');
+            let perc = document.getElementById('perc-display');
             let warn = document.getElementById('warn');
 
             let timer = setInterval(() => {
                 val++;
-                if(val <= 100) bar.style.width = val + '%';
+                if (val <= 100) bar.style.width = val + '%';
                 perc.innerText = val + '%';
-                
-                if(val === 105) warn.innerText = "⚠️ WARNING: TOO CUTE";
-                if(val === 115) warn.innerText = "⚠️ SYSTEM OVERLOAD!";
 
-                if(val >= 120) {
+                if (val === 101) warn.innerText = "⚠️ WARNING: TOO CUTE!";
+                if (val === 110) warn.innerText = "⚠️ SYSTEM OVERLOAD!!";
+
+                if (val >= 120) {
                     clearInterval(timer);
                     confetti({ particleCount: 150, spread: 70, origin: { y: 0.6 }, colors: ['#ff4d8d', '#ffffff'] });
-                    setTimeout(() => next(2), 2000);
+                    setTimeout(() => {
+                        document.getElementById('s2').classList.remove('active');
+                        document.getElementById('s3').classList.add('active');
+                    }, 2000);
                 }
             }, 50);
         }
 
-        function reveal(el) {
-            el.querySelector('span').style.display = "none";
-            el.querySelector('.secret-txt').style.display = "block";
-            el.style.background = "rgba(255, 77, 141, 0.15)";
-            el.style.borderColor = "#ff4d8d";
-        }
-
-        // Floating Hearts Logic
+        // Background Hearts
         setInterval(() => {
-            const h = document.createElement('div');
-            h.innerHTML = '❤️';
-            h.style.cssText = `position:fixed; bottom:-20px; left:${Math.random()*100}%; font-size:${Math.random()*20+10}px; opacity:${Math.random()}; transition:4s; pointer-events:none;`;
-            document.getElementById('hearts-container').appendChild(h);
-            setTimeout(() => { h.style.transform = `translateY(-110vh) rotate(${Math.random()*360}deg)`; h.style.opacity = '0'; }, 100);
-            setTimeout(() => h.remove(), 4000);
+            const heart = document.createElement('div');
+            heart.innerHTML = '❤️';
+            heart.className = 'heart-particle';
+            heart.style.left = Math.random() * 100 + 'vw';
+            heart.style.fontSize = Math.random() * 20 + 10 + 'px';
+            heart.style.opacity = Math.random();
+            document.body.appendChild(heart);
+            setTimeout(() => heart.remove(), 4000);
         }, 400);
     </script>
 </body>
