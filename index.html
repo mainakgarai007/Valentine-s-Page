@@ -12,44 +12,55 @@
 
 <audio id="bgMusic" src="assets/music/bg.mp3" loop></audio>
 
-<div class="screen active" id="screen1">
-  <img src="assets/images/bear.png" class="character soft-float">
-  <p class="text">Something special is coming<span class="dots">...</span></p>
+<!-- SCREEN 1 -->
+<div class="screen active">
+  <img src="assets/images/bear.png" class="character float">
+  <p class="text">Something special is coming<span class="dots"></span></p>
+  <button class="main-btn" onclick="next()">Tap to Begin</button>
 </div>
 
-<div class="screen" id="screen2">
-  <button class="main-btn" onclick="nextScreen()">Tap to Begin</button>
-</div>
-
-<div class="screen" id="screen3">
+<!-- SCREEN 2 -->
+<div class="screen">
   <img src="assets/images/panda.png" class="character panda">
   <p class="text">Do you like surprises?</p>
   <div class="buttons">
-    <button onclick="nextScreen()">Yes ❤️</button>
+    <button onclick="next()">Yes ❤️</button>
     <button class="no-btn">No 😔</button>
   </div>
 </div>
 
-<div class="screen" id="screen4">
+<!-- SCREEN 3 -->
+<div class="screen">
   <div class="card">
     <img src="assets/images/pic1.jpg">
     <p>This one is special…</p>
   </div>
+  <button class="main-btn" onclick="next()">Continue</button>
 </div>
 
-<div class="screen" id="screen5">
+<!-- SCREEN 4 -->
+<div class="screen">
   <div class="gallery">
     <img src="assets/images/pic2.jpg">
   </div>
+  <button class="main-btn" onclick="next()">See the Message →</button>
 </div>
 
-<div class="screen" id="screen6">
-  <div class="heart-container">
-    <div id="broken">💔</div>
-    <div id="full">❤️</div>
+<!-- SCREEN 5 -->
+<div class="screen">
+  <div class="heart-box">
+    <div class="broken">💔</div>
+    <div class="full">❤️</div>
   </div>
   <p class="text">Forever ✨</p>
 </div>
+
+<!-- FOOTER -->
+<footer>
+  <a href="mailto:mainakgarai007@gmail.com">
+    📧 mainakgarai007@gmail.com
+  </a>
+</footer>
 
 <script src="script.js"></script>
 </body>
