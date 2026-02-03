@@ -1,32 +1,56 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>A Quiet Moment</title>
-    <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;500&family=Sacramento&display=swap" rel="stylesheet">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Something Special 💖</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="stars"></div>
-    <div class="grain"></div>
 
-    <main class="cinematic-container">
-        <div id="character-stage" class="hidden">
-            <div class="chibi">
-                <div class="face">
-                    <div class="eyes"></div>
-                    <div class="blush" id="blush-heart"></div>
-                </div>
-            </div>
-            <div class="glow-aura"></div>
-        </div>
+<div id="background"></div>
 
-        <div id="text-overlay" class="text-fade"></div>
+<audio id="bgMusic" src="assets/music/bg.mp3" loop></audio>
 
-        <button id="replay-btn" class="hidden" onclick="startExperience()">Replay</button>
-    </main>
+<div class="screen active" id="screen1">
+  <img src="assets/images/bear.png" class="character soft-float">
+  <p class="text">Something special is coming<span class="dots">...</span></p>
+</div>
 
-    <script src="script.js"></script>
+<div class="screen" id="screen2">
+  <button class="main-btn" onclick="nextScreen()">Tap to Begin</button>
+</div>
+
+<div class="screen" id="screen3">
+  <img src="assets/images/panda.png" class="character panda">
+  <p class="text">Do you like surprises?</p>
+  <div class="buttons">
+    <button onclick="nextScreen()">Yes ❤️</button>
+    <button class="no-btn">No 😔</button>
+  </div>
+</div>
+
+<div class="screen" id="screen4">
+  <div class="card">
+    <img src="assets/images/pic1.jpg">
+    <p>This one is special…</p>
+  </div>
+</div>
+
+<div class="screen" id="screen5">
+  <div class="gallery">
+    <img src="assets/images/pic2.jpg">
+  </div>
+</div>
+
+<div class="screen" id="screen6">
+  <div class="heart-container">
+    <div id="broken">💔</div>
+    <div id="full">❤️</div>
+  </div>
+  <p class="text">Forever ✨</p>
+</div>
+
+<script src="script.js"></script>
 </body>
 </html>
