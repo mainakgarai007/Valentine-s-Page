@@ -1,30 +1,11 @@
-let screens = document.querySelectorAll(".screen");
-let index = 0;
-const music = document.getElementById("bgMusic");
+const music=document.getElementById("bgMusic");
+music.volume=0.25;
+music.play();
 
-function next(){
-  screens[index].classList.remove("active");
-  index++;
-  screens[index].classList.add("active");
-
-  if(index === 1){
-    music.volume = 0.25;
-    music.play();
-  }
+function go(id){
+  document.querySelectorAll(".screen").forEach(s=>s.classList.remove("active"));
+  document.getElementById(id).classList.add("active");
 }
 
-/* Falling hearts */
-for(let i=0;i<35;i++){
-  const h=document.createElement("span");
-  h.innerHTML="❤️";
-  h.style.left=Math.random()*100+"vw";
-  h.style.animationDuration=5+Math.random()*5+"s";
-  document.getElementById("background").appendChild(h);
-}
-
-/* No button dodge */
-document.addEventListener("mouseover",e=>{
-  if(e.target.classList.contains("no-btn")){
-    e.target.style.transform=`translate(${Math.random()*60-30}px,${Math.random()*30-15}px)`;
-  }
-});
+// auto S0.5 → S1
+setTimeout(()=>go("s1"),2000);
