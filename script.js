@@ -11,8 +11,9 @@ function startMusic(){
 }
 
 /* Create floating hearts background */
+let heartInterval;
 function createFloatingHearts(){
-  setInterval(()=>{
+  heartInterval = setInterval(()=>{
     const heart = document.createElement('div');
     heart.className = 'heart-float';
     heart.innerHTML = '❤️';
@@ -187,6 +188,7 @@ function memories(){
 /* End */
 function end(){
   createConfetti(100);
+  if(heartInterval) clearInterval(heartInterval);
   document.querySelector(".email").style.display="none";
   show(`<h1 class="bounce-in pulse">Forever starts now ✨</h1>`);
   music.volume = 0.2;
