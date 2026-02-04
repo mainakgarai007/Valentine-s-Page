@@ -245,6 +245,7 @@ img.char {
   justify-content: center;
   flex-wrap: wrap;
   align-items: flex-start;
+  min-height: 150px;
 }
 
 .balloon {
@@ -256,8 +257,8 @@ img.char {
   font-size: 1.3rem;
   font-weight: 600;
   position: relative;
-  animation: balloonFloat 3s ease-in-out infinite;
   transform: rotate(-45deg);
+  opacity: 0;
 }
 
 /* Pink balloon (I) */
@@ -350,14 +351,77 @@ img.char {
   transform: rotate(45deg);
   color: #fff;
   text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  opacity: 0;
 }
 
-@keyframes balloonFloat {
+/* Text that appears after balloon pops */
+.balloon-text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 10;
+  color: #fff;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+  opacity: 0;
+  font-size: 1.3rem;
+  font-weight: 600;
+  pointer-events: none;
+}
+
+/* Float up animation */
+@keyframes balloonFloatUp {
+  0% {
+    transform: translateY(200px) rotate(-45deg);
+    opacity: 0;
+  }
+  20% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(0) rotate(-45deg);
+    opacity: 1;
+  }
+}
+
+/* Gentle hover after arriving */
+@keyframes balloonHover {
   0%, 100% {
     transform: translateY(0) rotate(-45deg);
   }
   50% {
-    transform: translateY(-25px) rotate(-45deg);
+    transform: translateY(-15px) rotate(-45deg);
+  }
+}
+
+/* Blast/pop animation */
+@keyframes balloonBlast {
+  0% {
+    transform: translateY(0) rotate(-45deg) scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: translateY(0) rotate(-45deg) scale(1.3);
+    opacity: 0.7;
+  }
+  100% {
+    transform: translateY(0) rotate(-45deg) scale(0.2);
+    opacity: 0;
+  }
+}
+
+/* Text appear animation */
+@keyframes textAppear {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.5);
+  }
+  50% {
+    transform: translate(-50%, -50%) scale(1.1);
+  }
+  100% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
   }
 }
 

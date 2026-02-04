@@ -118,22 +118,167 @@ function s4() {
     <h2 class="fade">This is what I wanted to say for so long…</h2>
     <p class="fade">Watch the balloons carry my message to you</p>
     <div class="balloons">
-      <div class="balloon">
-        <span>I</span>
-        <div class="balloon-string"></div>
+      <div style="position: relative; width: 80px;">
+        <div class="balloon" id="balloon1">
+          <div class="balloon-string"></div>
+        </div>
+        <span class="balloon-text" id="text1">I</span>
       </div>
-      <div class="balloon">
-        <span>Love</span>
-        <div class="balloon-string"></div>
+      <div style="position: relative; width: 80px;">
+        <div class="balloon" id="balloon2">
+          <div class="balloon-string"></div>
+        </div>
+        <span class="balloon-text" id="text2">Love</span>
       </div>
-      <div class="balloon">
-        <span>You</span>
-        <div class="balloon-string"></div>
+      <div style="position: relative; width: 80px;">
+        <div class="balloon" id="balloon3">
+          <div class="balloon-string"></div>
+        </div>
+        <span class="balloon-text" id="text3">You</span>
       </div>
     </div>
-    <p class="fade" style="margin-top:30px">There's more I want to show you…</p>
-    <button class="btn" onclick="s5()">Continue →</button>
+    <div id="finalMessage" style="opacity: 0; margin-top: 30px; transition: opacity 1s;">
+      <p style="margin-top:30px">There's more I want to show you…</p>
+      <button class="btn" onclick="s5()">Continue →</button>
+    </div>
   `);
+  
+  // Start the sequential balloon animation
+  animateBalloonSequence();
+}
+
+function animateBalloonSequence() {
+  const balloon1 = document.getElementById('balloon1');
+  const balloon2 = document.getElementById('balloon2');
+  const balloon3 = document.getElementById('balloon3');
+  const text1 = document.getElementById('text1');
+  const text2 = document.getElementById('text2');
+  const text3 = document.getElementById('text3');
+  const finalMessage = document.getElementById('finalMessage');
+  
+  // Animation timing constants (in milliseconds)
+  const FLOAT_DURATION = 1500;
+  const HOVER_DURATION = 1500;
+  const BLAST_DURATION = 500;
+  const TEXT_DELAY = 500;
+  const BALLOON_DELAY = 600;
+  const INITIAL_DELAY = 300;
+  
+  // Balloon 1: Float up → pause → blast → show "I"
+  let time = INITIAL_DELAY;
+  setTimeout(() => {
+    balloon1.style.animation = `balloonFloatUp ${FLOAT_DURATION}ms ease-out forwards`;
+  }, time);
+  
+  time += FLOAT_DURATION;
+  setTimeout(() => {
+    balloon1.style.animation = 'balloonHover 2s ease-in-out infinite';
+  }, time);
+  
+  time += HOVER_DURATION;
+  setTimeout(() => {
+    balloon1.style.animation = `balloonBlast ${BLAST_DURATION}ms ease-out forwards`;
+    createSparkles(balloon1);
+  }, time);
+  
+  time += TEXT_DELAY;
+  setTimeout(() => {
+    text1.style.animation = 'textAppear 0.6s ease-out forwards';
+  }, time);
+  
+  // Balloon 2: Float up → pause → blast → show "Love"
+  time += BALLOON_DELAY;
+  setTimeout(() => {
+    balloon2.style.animation = `balloonFloatUp ${FLOAT_DURATION}ms ease-out forwards`;
+  }, time);
+  
+  time += FLOAT_DURATION;
+  setTimeout(() => {
+    balloon2.style.animation = 'balloonHover 2s ease-in-out infinite';
+  }, time);
+  
+  time += HOVER_DURATION;
+  setTimeout(() => {
+    balloon2.style.animation = `balloonBlast ${BLAST_DURATION}ms ease-out forwards`;
+    createSparkles(balloon2);
+  }, time);
+  
+  time += TEXT_DELAY;
+  setTimeout(() => {
+    text2.style.animation = 'textAppear 0.6s ease-out forwards';
+  }, time);
+  
+  // Balloon 3: Float up → pause → blast → show "You"
+  time += BALLOON_DELAY;
+  setTimeout(() => {
+    balloon3.style.animation = `balloonFloatUp ${FLOAT_DURATION}ms ease-out forwards`;
+  }, time);
+  
+  time += FLOAT_DURATION;
+  setTimeout(() => {
+    balloon3.style.animation = 'balloonHover 2s ease-in-out infinite';
+  }, time);
+  
+  time += HOVER_DURATION;
+  setTimeout(() => {
+    balloon3.style.animation = `balloonBlast ${BLAST_DURATION}ms ease-out forwards`;
+    createSparkles(balloon3);
+  }, time);
+  
+  time += TEXT_DELAY;
+  setTimeout(() => {
+    text3.style.animation = 'textAppear 0.6s ease-out forwards';
+  }, time);
+  
+  // Show final message and button after all balloons are done
+  time += 800;
+  setTimeout(() => {
+    finalMessage.style.opacity = '1';
+  }, time);
+}
+
+function createSparkles(balloon) {
+  const rect = balloon.getBoundingClientRect();
+  const centerX = rect.left + rect.width / 2;
+  const centerY = rect.top + rect.height / 2;
+  
+  for (let i = 0; i < 8; i++) {
+    const sparkle = document.createElement('div');
+    sparkle.textContent = '✨';
+    sparkle.style.position = 'fixed';
+    sparkle.style.left = centerX + 'px';
+    sparkle.style.top = centerY + 'px';
+    sparkle.style.fontSize = '16px';
+    sparkle.style.pointerEvents = 'none';
+    sparkle.style.zIndex = '1000';
+    
+    const angle = (Math.PI * 2 * i) / 8;
+    const distance = 40;
+    const endX = centerX + Math.cos(angle) * distance;
+    const endY = centerY + Math.sin(angle) * distance;
+    
+    document.body.appendChild(sparkle);
+    
+    sparkle.animate([
+      { 
+        left: centerX + 'px', 
+        top: centerY + 'px', 
+        opacity: 1,
+        transform: 'scale(0.5)'
+      },
+      { 
+        left: endX + 'px', 
+        top: endY + 'px', 
+        opacity: 0,
+        transform: 'scale(1.2)'
+      }
+    ], {
+      duration: 600,
+      easing: 'ease-out'
+    });
+    
+    setTimeout(() => sparkle.remove(), 600);
+  }
 }
 
 /* S5 - ENVELOPE SCREEN */
