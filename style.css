@@ -1,116 +1,64 @@
-*{
-  margin:0;
-  padding:0;
-  box-sizing:border-box;
-  font-family: 'Segoe UI', sans-serif;
-}
+*{margin:0;padding:0;box-sizing:border-box;font-family:sans-serif;}
+body{background:#0c0220;color:#fff;overflow:hidden}
 
-body{
-  height:100vh;
-  overflow:hidden;
-  background:linear-gradient(180deg,#2b0036,#000);
-  color:#fff;
-}
-
-/* Background hearts */
-#background span{
-  position:absolute;
-  top:-10%;
-  font-size:16px;
-  opacity:0.3;
-  animation:fall linear infinite;
-}
-
-@keyframes fall{
-  to{transform:translateY(120vh) translateX(30px);}
-}
-
-/* Screens */
 .screen{
   position:absolute;
   inset:0;
   display:none;
   flex-direction:column;
-  align-items:center;
   justify-content:center;
+  align-items:center;
   text-align:center;
-  padding:20px;
+  gap:15px;
 }
+
 .screen.active{display:flex}
 
-/* Characters */
-.character{width:150px}
-.float{animation:float 3s ease-in-out infinite}
-@keyframes float{50%{transform:translateY(-8px)}}
-
-.panda{animation:breathe 4s infinite}
-@keyframes breathe{50%{transform:scale(1.02)}}
-
-/* Text */
-.text{margin:15px 0;font-size:1.2rem}
-.dots::after{
-  content:'';
-  animation:dots 1.5s infinite;
-}
-@keyframes dots{
-  0%{content:''}
-  33%{content:'.'}
-  66%{content:'..'}
-  100%{content:'...'}
-}
-
-/* Buttons */
-.main-btn{
-  padding:14px 28px;
-  border:none;
-  border-radius:30px;
-  background:linear-gradient(45deg,#ff6ec7,#b26cff);
-  color:#fff;
-  font-size:1rem;
-  margin-top:15px;
-  animation:pulse 2s infinite;
-}
-@keyframes pulse{50%{transform:scale(1.05)}}
-
-.buttons button{
-  margin:10px;
+button{
   padding:10px 20px;
-  border-radius:20px;
   border:none;
-}
-
-/* Card & gallery */
-.card{
-  background:rgba(255,255,255,0.1);
-  padding:20px;
   border-radius:20px;
-}
-.card img,
-.gallery img{
-  width:220px;
-  border-radius:15px;
+  background:#ff5da2;
+  color:#fff;
+  font-size:16px;
 }
 
-/* Heart end */
-.heart-box{font-size:60px;position:relative}
-.full{
-  opacity:0;
-  animation:merge 3s forwards;
-}
-@keyframes merge{
-  50%{opacity:0}
-  100%{opacity:1;transform:scale(1.2)}
-}
-
-/* Footer */
 footer{
-  position:absolute;
-  bottom:10px;
+  position:fixed;
+  bottom:5px;
   width:100%;
   text-align:center;
-  font-size:0.9rem;
 }
-footer a{
-  color:#ff9adf;
-  text-decoration:none;
+footer a{color:#ccc;text-decoration:none;font-size:12px}
+
+.panda,.bear,.sad-panda{font-size:80px;animation:float 3s ease-in-out infinite}
+@keyframes float{50%{transform:translateY(-8px)}}
+
+.balloons span{
+  font-size:40px;
+  margin:5px;
+  animation:float 2s ease-in-out infinite;
+}
+
+.slider img{
+  width:200px;
+  position:absolute;
+  opacity:0;
+  animation:slide 12s infinite;
+}
+.slider img:nth-child(1){animation-delay:0s}
+.slider img:nth-child(2){animation-delay:3s}
+.slider img:nth-child(3){animation-delay:6s}
+.slider img:nth-child(4){animation-delay:9s}
+
+@keyframes slide{
+  0%{opacity:0}
+  10%,30%{opacity:1}
+  40%{opacity:0}
+}
+
+.heart{font-size:100px;animation:heal 3s forwards}
+@keyframes heal{
+  50%{transform:scale(1.2)}
+  100%{content:"❤️"}
 }
