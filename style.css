@@ -1,80 +1,421 @@
-*{margin:0;padding:0;box-sizing:border-box;font-family:'Comic Sans MS',cursive}
-body{
-  background:#16001e;
-  color:#fff;
-  overflow:hidden;
-}
-#app{
-  width:100vw;
-  height:100vh;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  flex-direction:column;
-  text-align:center;
-  padding:20px;
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
-.fade{animation:fade 1s ease}
-@keyframes fade{from{opacity:0}to{opacity:1}}
-
-.btn{
-  margin-top:25px;
-  padding:14px 28px;
-  background:linear-gradient(45deg,#ff4fb9,#ff86e0);
-  border:none;
-  border-radius:30px;
-  color:#fff;
-  font-size:18px;
-  box-shadow:0 0 20px rgba(255,105,180,.6);
+body {
+  background: linear-gradient(135deg, #1a0033 0%, #330033 50%, #4a0e4e 100%);
+  color: #fff;
+  overflow: hidden;
+  position: relative;
 }
 
-img.char{
-  width:180px;
-  animation:float 4s ease-in-out infinite;
-}
-@keyframes float{
-  0%,100%{transform:translateY(0)}
-  50%{transform:translateY(-10px)}
-}
-
-.email{
-  position:fixed;
-  bottom:8px;
-  width:100%;
-  text-align:center;
-  font-size:12px;
-  opacity:.5;
+/* Rain animation */
+.rain {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 1;
 }
 
-.balloons{
-  display:flex;
-  gap:25px;
-  margin-top:30px;
-}
-.balloon{
-  width:80px;
-  height:100px;
-  border-radius:50% 50% 50% 50%;
-  background:#ff5fa2;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  font-size:22px;
-  animation:rise 12s linear infinite;
-  box-shadow:0 0 25px rgba(255,105,180,.6);
-}
-@keyframes rise{
-  0%{transform:translateY(40px)}
-  100%{transform:translateY(-200px)}
+.raindrop {
+  position: absolute;
+  width: 2px;
+  height: 20px;
+  background: linear-gradient(transparent, rgba(255, 255, 255, 0.3));
+  animation: fall linear infinite;
 }
 
-.memories{
-  display:flex;
-  gap:15px;
-  overflow-x:auto;
+@keyframes fall {
+  to {
+    transform: translateY(100vh);
+  }
 }
-.memories img{
-  width:220px;
-  border-radius:16px;
+
+/* Falling hearts */
+.hearts {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.heart {
+  position: absolute;
+  font-size: 20px;
+  opacity: 0.6;
+  animation: heartfall linear infinite;
+}
+
+@keyframes heartfall {
+  to {
+    transform: translateY(100vh) rotate(360deg);
+  }
+}
+
+#app {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  text-align: center;
+  padding: 20px;
+  position: relative;
+  z-index: 10;
+  overflow-y: auto;
+}
+
+/* Text styling - large, readable, glowing */
+h1 {
+  font-size: 2.5rem;
+  font-weight: 600;
+  text-shadow: 0 0 20px rgba(255, 105, 180, 0.8),
+               0 0 30px rgba(255, 105, 180, 0.5);
+  margin: 15px 0;
+  line-height: 1.3;
+}
+
+h2 {
+  font-size: 1.8rem;
+  font-weight: 500;
+  text-shadow: 0 0 15px rgba(255, 105, 180, 0.7);
+  margin: 12px 0;
+  line-height: 1.4;
+}
+
+h3 {
+  font-size: 1.5rem;
+  font-weight: 500;
+  text-shadow: 0 0 12px rgba(255, 105, 180, 0.6);
+  margin: 10px 0;
+}
+
+p {
+  font-size: 1.2rem;
+  line-height: 1.6;
+  margin: 10px 0;
+  text-shadow: 0 0 10px rgba(255, 105, 180, 0.4);
+}
+
+.fade {
+  animation: fade 1.5s ease;
+}
+
+@keyframes fade {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Touch-friendly buttons */
+.btn {
+  margin: 15px 8px;
+  padding: 16px 32px;
+  background: linear-gradient(45deg, #ff4fb9, #ff86e0);
+  border: none;
+  border-radius: 30px;
+  color: #fff;
+  font-size: 1.1rem;
+  font-weight: 500;
+  box-shadow: 0 0 25px rgba(255, 105, 180, 0.7);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  min-width: 140px;
+  min-height: 50px;
+}
+
+.btn:hover, .btn:active {
+  transform: scale(1.05);
+  box-shadow: 0 0 35px rgba(255, 105, 180, 0.9);
+}
+
+/* Character images */
+img.char {
+  width: 200px;
+  max-width: 80%;
+  margin: 20px 0;
+  filter: drop-shadow(0 0 15px rgba(255, 105, 180, 0.5));
+}
+
+.char.float {
+  animation: float 4s ease-in-out infinite;
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-15px);
+  }
+}
+
+/* Panda eye blink */
+.blink {
+  animation: blink 4s ease-in-out infinite;
+}
+
+@keyframes blink {
+  0%, 48%, 52%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.3;
+  }
+}
+
+/* Email at bottom */
+.email {
+  position: fixed;
+  bottom: 10px;
+  width: 100%;
+  text-align: center;
+  font-size: 11px;
+  opacity: 0.4;
+  z-index: 100;
+}
+
+/* S4 Balloon animation */
+.balloons {
+  display: flex;
+  gap: 20px;
+  margin: 30px 0;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.balloon {
+  width: 70px;
+  height: 90px;
+  border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+  background: linear-gradient(135deg, #ff5fa2, #ff86e0);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.3rem;
+  font-weight: 600;
+  box-shadow: 0 0 30px rgba(255, 105, 180, 0.8);
+  position: relative;
+  animation: balloonFloat 4s ease-in-out infinite, balloonSway 3s ease-in-out infinite;
+}
+
+.balloon:nth-child(1) {
+  animation-delay: 0s, 0.5s;
+}
+
+.balloon:nth-child(2) {
+  animation-delay: 0.8s, 1s;
+}
+
+.balloon:nth-child(3) {
+  animation-delay: 1.6s, 1.5s;
+}
+
+@keyframes balloonFloat {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-20px);
+  }
+}
+
+@keyframes balloonSway {
+  0%, 100% {
+    transform: translateX(0);
+  }
+  25% {
+    transform: translateX(-8px);
+  }
+  75% {
+    transform: translateX(8px);
+  }
+}
+
+/* Envelope icon */
+.envelope {
+  font-size: 5rem;
+  margin: 20px 0;
+  filter: drop-shadow(0 0 20px rgba(255, 105, 180, 0.7));
+  animation: float 3s ease-in-out infinite;
+}
+
+/* Letter card */
+.letter-card {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 20px;
+  padding: 30px;
+  max-width: 500px;
+  margin: 20px auto;
+  box-shadow: 0 0 30px rgba(255, 105, 180, 0.4);
+  max-height: 60vh;
+  overflow-y: auto;
+}
+
+.letter-card p {
+  margin: 20px 0;
+  line-height: 1.8;
+  text-align: left;
+}
+
+.text-block {
+  opacity: 0;
+  animation: fadeInBlock 1s ease forwards;
+}
+
+.text-block:nth-child(1) {
+  animation-delay: 0.3s;
+}
+
+.text-block:nth-child(2) {
+  animation-delay: 0.8s;
+}
+
+.text-block:nth-child(3) {
+  animation-delay: 1.3s;
+}
+
+@keyframes fadeInBlock {
+  to {
+    opacity: 1;
+  }
+}
+
+/* Heart animation */
+.heart-animate {
+  font-size: 6rem;
+  animation: heartPulse 2s ease infinite;
+  filter: drop-shadow(0 0 30px rgba(255, 105, 180, 0.9));
+}
+
+@keyframes heartPulse {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+}
+
+/* Memories slider */
+.memories {
+  display: flex;
+  gap: 15px;
+  overflow-x: auto;
+  padding: 20px 0;
+  scroll-behavior: smooth;
+  max-width: 100%;
+  -webkit-overflow-scrolling: touch;
+}
+
+.memories::-webkit-scrollbar {
+  height: 8px;
+}
+
+.memories::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+}
+
+.memories::-webkit-scrollbar-thumb {
+  background: rgba(255, 105, 180, 0.6);
+  border-radius: 10px;
+}
+
+.memories img {
+  width: 250px;
+  height: 250px;
+  object-fit: cover;
+  border-radius: 16px;
+  flex-shrink: 0;
+  box-shadow: 0 0 20px rgba(255, 105, 180, 0.5);
+  transition: transform 0.3s ease;
+}
+
+.memories img:hover {
+  transform: scale(1.05);
+}
+
+/* Line by line text */
+.line {
+  opacity: 0;
+  animation: lineAppear 1s ease forwards;
+}
+
+.line:nth-child(1) {
+  animation-delay: 0s;
+}
+
+.line:nth-child(2) {
+  animation-delay: 1s;
+}
+
+.line:nth-child(3) {
+  animation-delay: 2s;
+}
+
+@keyframes lineAppear {
+  to {
+    opacity: 1;
+  }
+}
+
+/* Mobile optimizations */
+@media (max-width: 480px) {
+  h1 {
+    font-size: 2rem;
+  }
+  
+  h2 {
+    font-size: 1.5rem;
+  }
+  
+  h3 {
+    font-size: 1.3rem;
+  }
+  
+  p {
+    font-size: 1.1rem;
+  }
+  
+  .btn {
+    font-size: 1rem;
+    padding: 14px 24px;
+  }
+  
+  img.char {
+    width: 160px;
+  }
+  
+  .balloon {
+    width: 60px;
+    height: 80px;
+    font-size: 1.1rem;
+  }
+  
+  .memories img {
+    width: 200px;
+    height: 200px;
+  }
+  
+  .letter-card {
+    padding: 20px;
+  }
 }
