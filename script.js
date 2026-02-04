@@ -173,11 +173,9 @@ function s9() {
   show(`<h1 class="fade">Forever starts now ✨</h1>`);
   
   // Fade out music
-  let vol = music.volume;
   const fadeOut = setInterval(() => {
-    if (vol > 0.05) {
-      vol -= 0.05;
-      music.volume = vol;
+    if (music.volume > 0.05) {
+      music.volume -= 0.05;
     } else {
       music.volume = 0;
       clearInterval(fadeOut);
