@@ -190,6 +190,17 @@ img.char {
   z-index: 100;
 }
 
+.email a {
+  color: inherit;
+  text-decoration: none;
+  cursor: pointer;
+  transition: opacity 0.3s ease;
+}
+
+.email a:hover {
+  opacity: 1;
+}
+
 /* S4 Balloon animation */
 .balloons {
   display: flex;
