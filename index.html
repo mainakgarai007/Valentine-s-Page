@@ -1,66 +1,92 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Something Special 💖</title>
+  <meta charset="UTF-8">
+  <title>Something Special</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<div id="background"></div>
+<!-- Background layers -->
+<div class="rain"></div>
+<div class="hearts"></div>
 
-<audio id="bgMusic" src="assets/music/bg.mp3" loop></audio>
+<!-- Background music -->
+<audio id="bgMusic" src="music.mp3" loop></audio>
 
-<!-- SCREEN 1 -->
-<div class="screen active">
-  <img src="assets/images/bear.png" class="character float">
-  <p class="text">Something special is coming<span class="dots"></span></p>
-  <button class="main-btn" onclick="next()">Tap to Begin</button>
-</div>
-
-<!-- SCREEN 2 -->
-<div class="screen">
-  <img src="assets/images/panda.png" class="character panda">
-  <p class="text">Do you like surprises?</p>
-  <div class="buttons">
-    <button onclick="next()">Yes ❤️</button>
-    <button class="no-btn">No 😔</button>
-  </div>
-</div>
-
-<!-- SCREEN 3 -->
-<div class="screen">
-  <div class="card">
-    <img src="assets/images/pic1.jpg">
-    <p>This one is special…</p>
-  </div>
-  <button class="main-btn" onclick="next()">Continue</button>
-</div>
-
-<!-- SCREEN 4 -->
-<div class="screen">
-  <div class="gallery">
-    <img src="assets/images/pic2.jpg">
-  </div>
-  <button class="main-btn" onclick="next()">See the Message →</button>
-</div>
-
-<!-- SCREEN 5 -->
-<div class="screen">
-  <div class="heart-box">
-    <div class="broken">💔</div>
-    <div class="full">❤️</div>
-  </div>
-  <p class="text">Forever ✨</p>
-</div>
-
-<!-- FOOTER -->
+<!-- Footer -->
 <footer>
-  <a href="mailto:mainakgarai007@gmail.com">
-    📧 mainakgarai007@gmail.com
-  </a>
+  <a href="mailto:mainakgarai007@gmail.com">mainakgarai007@gmail.com</a>
 </footer>
+
+<!-- SCREENS -->
+
+<div class="screen active" id="s0">
+  <div class="panda">🐼</div>
+</div>
+
+<div class="screen" id="s1">
+  <div class="bear">🧸</div>
+  <p>I have something special to tell you…</p>
+  <p>Something that will change everything ✨</p>
+  <button onclick="go('s2')">Tap to Begin</button>
+</div>
+
+<div class="screen" id="s2">
+  <h2>Do you like me?</h2>
+  <p>Be honest with me…</p>
+  <button onclick="go('s25')">Yes 💕</button>
+  <button onclick="go('s25')">No 😔</button>
+</div>
+
+<div class="screen" id="s25">
+  <h2>Do you like me?</h2>
+  <p>Be honest with me…</p>
+  <button onclick="go('s4')">Yes 💕</button>
+  <button onclick="go('s3')">No 😔</button>
+</div>
+
+<div class="screen" id="s3">
+  <div class="sad-panda">🐼</div>
+  <h2>Please say yes!</h2>
+  <p>I really hope you do…</p>
+  <button onclick="go('s4')">Yes 💖</button>
+</div>
+
+<div class="screen" id="s4">
+  <div class="balloons">
+    <span>I</span><span>Love</span><span>You</span>
+  </div>
+  <p>This is what I wanted to say for so long…</p>
+  <button onclick="go('s5')">Continue</button>
+</div>
+
+<div class="screen" id="s5">
+  <div class="slider">
+    <img src="images/img1.jpg">
+    <img src="images/img2.jpg">
+    <img src="images/img3.jpg">
+    <img src="images/img4.jpg">
+  </div>
+  <p>From the first day I met you, life became brighter…</p>
+  <button onclick="go('s6')">See the Message →</button>
+</div>
+
+<div class="screen" id="s6">
+  <p class="message">
+    I’ve been meaning to say this for a while.<br><br>
+    You have a way of making simple moments feel special,
+    and being around you just feels right.<br><br>
+    So tell me one thing—<br>
+    <b>would you like to walk this journey with me?</b>
+  </p>
+  <button onclick="go('s7')">Yes, forever ❤️</button>
+</div>
+
+<div class="screen" id="s7">
+  <div class="heart broken">💔</div>
+</div>
 
 <script src="script.js"></script>
 </body>
