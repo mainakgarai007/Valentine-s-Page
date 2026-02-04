@@ -210,9 +210,8 @@ img.char {
 }
 
 .balloon {
-  width: 70px;
-  height: 90px;
-  border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+  width: 80px;
+  height: 80px;
   background: linear-gradient(135deg, #ff5fa2, #ff86e0);
   display: flex;
   align-items: center;
@@ -222,6 +221,34 @@ img.char {
   box-shadow: 0 0 30px rgba(255, 105, 180, 0.8);
   position: relative;
   animation: balloonFloat 4s ease-in-out infinite, balloonSway 3s ease-in-out infinite;
+  transform: rotate(-45deg);
+}
+
+.balloon::before,
+.balloon::after {
+  content: "";
+  width: 80px;
+  height: 80px;
+  background: linear-gradient(135deg, #ff5fa2, #ff86e0);
+  border-radius: 50%;
+  position: absolute;
+}
+
+.balloon::before {
+  top: -40px;
+  left: 0;
+}
+
+.balloon::after {
+  left: 40px;
+  top: 0;
+}
+
+.balloon span {
+  position: relative;
+  z-index: 1;
+  transform: rotate(45deg);
+  color: #fff;
 }
 
 .balloon:nth-child(1) {
@@ -415,9 +442,23 @@ img.char {
   }
   
   .balloon {
-    width: 60px;
-    height: 80px;
+    width: 70px;
+    height: 70px;
     font-size: 1.1rem;
+  }
+  
+  .balloon::before,
+  .balloon::after {
+    width: 70px;
+    height: 70px;
+  }
+  
+  .balloon::before {
+    top: -35px;
+  }
+  
+  .balloon::after {
+    left: 35px;
   }
   
   .memories img {
