@@ -61,6 +61,43 @@ body {
   }
 }
 
+/* Background heart particles */
+.heart-particles {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 2;
+  overflow: hidden;
+}
+
+.heart-particle {
+  position: absolute;
+  font-size: 12px;
+  opacity: 0.2;
+  animation: particleDrift linear infinite;
+  filter: blur(0.5px);
+}
+
+@keyframes particleDrift {
+  0% {
+    transform: translateY(100vh) translateX(0) rotate(0deg);
+    opacity: 0;
+  }
+  10% {
+    opacity: 0.2;
+  }
+  90% {
+    opacity: 0.2;
+  }
+  100% {
+    transform: translateY(-100px) translateX(50px) rotate(180deg);
+    opacity: 0;
+  }
+}
+
 #app {
   width: 100vw;
   height: 100vh;
@@ -203,25 +240,63 @@ img.char {
 /* S4 Balloon animation */
 .balloons {
   display: flex;
-  gap: 20px;
+  gap: 40px;
   margin: 30px 0;
   justify-content: center;
   flex-wrap: wrap;
+  align-items: flex-start;
 }
 
 .balloon {
   width: 80px;
   height: 80px;
-  background: linear-gradient(135deg, #ff5fa2, #ff86e0);
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: 1.3rem;
   font-weight: 600;
-  box-shadow: 0 0 30px rgba(255, 105, 180, 0.8);
   position: relative;
-  animation: balloonFloat 4s ease-in-out infinite, balloonSway 3s ease-in-out infinite;
+  animation: balloonFloat 3s ease-in-out infinite;
   transform: rotate(-45deg);
+}
+
+/* Pink balloon (I) */
+.balloon:nth-child(1) {
+  background: linear-gradient(135deg, #ff69b4, #ffb6d9);
+  box-shadow: 0 0 40px rgba(255, 105, 180, 0.9),
+              0 10px 30px rgba(255, 105, 180, 0.5);
+  animation-delay: 0s;
+}
+
+.balloon:nth-child(1)::before,
+.balloon:nth-child(1)::after {
+  background: linear-gradient(135deg, #ff69b4, #ffb6d9);
+}
+
+/* Red balloon (Love) */
+.balloon:nth-child(2) {
+  background: linear-gradient(135deg, #ff1744, #ff5252);
+  box-shadow: 0 0 40px rgba(255, 23, 68, 0.9),
+              0 10px 30px rgba(255, 23, 68, 0.5);
+  animation-delay: 0.3s;
+}
+
+.balloon:nth-child(2)::before,
+.balloon:nth-child(2)::after {
+  background: linear-gradient(135deg, #ff1744, #ff5252);
+}
+
+/* Purple balloon (You) */
+.balloon:nth-child(3) {
+  background: linear-gradient(135deg, #9c27b0, #ce93d8);
+  box-shadow: 0 0 40px rgba(156, 39, 176, 0.9),
+              0 10px 30px rgba(156, 39, 176, 0.5);
+  animation-delay: 0.6s;
+}
+
+.balloon:nth-child(3)::before,
+.balloon:nth-child(3)::after {
+  background: linear-gradient(135deg, #9c27b0, #ce93d8);
 }
 
 .balloon::before,
@@ -229,7 +304,6 @@ img.char {
   content: "";
   width: 80px;
   height: 80px;
-  background: linear-gradient(135deg, #ff5fa2, #ff86e0);
   border-radius: 50%;
   position: absolute;
 }
@@ -244,43 +318,55 @@ img.char {
   top: 0;
 }
 
+/* String hanging from balloon */
+.balloon-string {
+  position: absolute;
+  bottom: -60px;
+  left: 50%;
+  transform: translateX(-50%) rotate(45deg);
+  width: 2px;
+  height: 60px;
+  background: linear-gradient(to bottom, rgba(255, 255, 255, 0.6), rgba(255, 255, 255, 0.2));
+  transform-origin: top center;
+  animation: stringSwing 2s ease-in-out infinite;
+  z-index: -1;
+}
+
+.balloon:nth-child(1) .balloon-string {
+  animation-delay: 0s;
+}
+
+.balloon:nth-child(2) .balloon-string {
+  animation-delay: 0.3s;
+}
+
+.balloon:nth-child(3) .balloon-string {
+  animation-delay: 0.6s;
+}
+
 .balloon span {
   position: relative;
   z-index: 1;
   transform: rotate(45deg);
   color: #fff;
-}
-
-.balloon:nth-child(1) {
-  animation-delay: 0s, 0.5s;
-}
-
-.balloon:nth-child(2) {
-  animation-delay: 0.8s, 1s;
-}
-
-.balloon:nth-child(3) {
-  animation-delay: 1.6s, 1.5s;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
 }
 
 @keyframes balloonFloat {
   0%, 100% {
-    transform: translateY(0);
+    transform: translateY(0) rotate(-45deg);
   }
   50% {
-    transform: translateY(-20px);
+    transform: translateY(-25px) rotate(-45deg);
   }
 }
 
-@keyframes balloonSway {
+@keyframes stringSwing {
   0%, 100% {
-    transform: translateX(0);
+    transform: translateX(-50%) rotate(43deg);
   }
-  25% {
-    transform: translateX(-8px);
-  }
-  75% {
-    transform: translateX(8px);
+  50% {
+    transform: translateX(-50%) rotate(47deg);
   }
 }
 
@@ -459,6 +545,11 @@ img.char {
   
   .balloon::after {
     left: 35px;
+  }
+
+  .balloon-string {
+    height: 50px;
+    bottom: -50px;
   }
   
   .memories img {

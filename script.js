@@ -29,6 +29,21 @@ function initBackgroundAnimations() {
     hearts.appendChild(heart);
   }
   document.body.appendChild(hearts);
+
+  // Add background heart particles
+  const particles = document.createElement('div');
+  particles.className = 'heart-particles';
+  for (let i = 0; i < 25; i++) {
+    const particle = document.createElement('div');
+    particle.className = 'heart-particle';
+    particle.textContent = '♥';
+    particle.style.left = Math.random() * 100 + '%';
+    particle.style.fontSize = (Math.random() * 8 + 8) + 'px';
+    particle.style.animationDuration = (Math.random() * 10 + 15) + 's';
+    particle.style.animationDelay = Math.random() * 10 + 's';
+    particles.appendChild(particle);
+  }
+  document.body.appendChild(particles);
 }
 
 function show(html) {
@@ -103,9 +118,18 @@ function s4() {
     <h2 class="fade">This is what I wanted to say for so long…</h2>
     <p class="fade">Watch the balloons carry my message to you</p>
     <div class="balloons">
-      <div class="balloon"><span>I</span></div>
-      <div class="balloon"><span>Love</span></div>
-      <div class="balloon"><span>You</span></div>
+      <div class="balloon">
+        <span>I</span>
+        <div class="balloon-string"></div>
+      </div>
+      <div class="balloon">
+        <span>Love</span>
+        <div class="balloon-string"></div>
+      </div>
+      <div class="balloon">
+        <span>You</span>
+        <div class="balloon-string"></div>
+      </div>
     </div>
     <p class="fade" style="margin-top:30px">There's more I want to show you…</p>
     <button class="btn" onclick="s5()">Continue →</button>
