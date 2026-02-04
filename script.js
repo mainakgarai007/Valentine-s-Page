@@ -118,22 +118,141 @@ function s4() {
     <h2 class="fade">This is what I wanted to say for so long…</h2>
     <p class="fade">Watch the balloons carry my message to you</p>
     <div class="balloons">
-      <div class="balloon">
-        <span>I</span>
+      <div class="balloon" id="balloon1">
+        <span id="text1">I</span>
         <div class="balloon-string"></div>
       </div>
-      <div class="balloon">
-        <span>Love</span>
+      <div class="balloon" id="balloon2">
+        <span id="text2">Love</span>
         <div class="balloon-string"></div>
       </div>
-      <div class="balloon">
-        <span>You</span>
+      <div class="balloon" id="balloon3">
+        <span id="text3">You</span>
         <div class="balloon-string"></div>
       </div>
     </div>
-    <p class="fade" style="margin-top:30px">There's more I want to show you…</p>
-    <button class="btn" onclick="s5()">Continue →</button>
+    <div id="finalMessage" style="opacity: 0; margin-top: 30px; transition: opacity 1s;">
+      <p style="margin-top:30px">There's more I want to show you…</p>
+      <button class="btn" onclick="s5()">Continue →</button>
+    </div>
   `);
+  
+  // Start the sequential balloon animation
+  animateBalloonSequence();
+}
+
+function animateBalloonSequence() {
+  const balloon1 = document.getElementById('balloon1');
+  const balloon2 = document.getElementById('balloon2');
+  const balloon3 = document.getElementById('balloon3');
+  const text1 = document.getElementById('text1');
+  const text2 = document.getElementById('text2');
+  const text3 = document.getElementById('text3');
+  const finalMessage = document.getElementById('finalMessage');
+  
+  // Balloon 1: Float up → pause → blast → show "I"
+  setTimeout(() => {
+    balloon1.style.animation = 'balloonFloatUp 1.5s ease-out forwards';
+  }, 300);
+  
+  setTimeout(() => {
+    balloon1.style.animation = 'balloonHover 2s ease-in-out infinite';
+  }, 1800);
+  
+  setTimeout(() => {
+    balloon1.style.animation = 'balloonBlast 0.5s ease-out forwards';
+    // Add sparkle effect
+    createSparkles(balloon1);
+  }, 3300);
+  
+  setTimeout(() => {
+    text1.style.animation = 'textAppear 0.6s ease-out forwards';
+  }, 3800);
+  
+  // Balloon 2: Float up → pause → blast → show "Love"
+  setTimeout(() => {
+    balloon2.style.animation = 'balloonFloatUp 1.5s ease-out forwards';
+  }, 4400);
+  
+  setTimeout(() => {
+    balloon2.style.animation = 'balloonHover 2s ease-in-out infinite';
+  }, 5900);
+  
+  setTimeout(() => {
+    balloon2.style.animation = 'balloonBlast 0.5s ease-out forwards';
+    createSparkles(balloon2);
+  }, 7400);
+  
+  setTimeout(() => {
+    text2.style.animation = 'textAppear 0.6s ease-out forwards';
+  }, 7900);
+  
+  // Balloon 3: Float up → pause → blast → show "You"
+  setTimeout(() => {
+    balloon3.style.animation = 'balloonFloatUp 1.5s ease-out forwards';
+  }, 8500);
+  
+  setTimeout(() => {
+    balloon3.style.animation = 'balloonHover 2s ease-in-out infinite';
+  }, 10000);
+  
+  setTimeout(() => {
+    balloon3.style.animation = 'balloonBlast 0.5s ease-out forwards';
+    createSparkles(balloon3);
+  }, 11500);
+  
+  setTimeout(() => {
+    text3.style.animation = 'textAppear 0.6s ease-out forwards';
+  }, 12000);
+  
+  // Show final message and button after all balloons are done
+  setTimeout(() => {
+    finalMessage.style.opacity = '1';
+  }, 12800);
+}
+
+function createSparkles(balloon) {
+  const rect = balloon.getBoundingClientRect();
+  const centerX = rect.left + rect.width / 2;
+  const centerY = rect.top + rect.height / 2;
+  
+  for (let i = 0; i < 8; i++) {
+    const sparkle = document.createElement('div');
+    sparkle.textContent = '✨';
+    sparkle.style.position = 'fixed';
+    sparkle.style.left = centerX + 'px';
+    sparkle.style.top = centerY + 'px';
+    sparkle.style.fontSize = '16px';
+    sparkle.style.pointerEvents = 'none';
+    sparkle.style.zIndex = '1000';
+    
+    const angle = (Math.PI * 2 * i) / 8;
+    const distance = 40;
+    const endX = centerX + Math.cos(angle) * distance;
+    const endY = centerY + Math.sin(angle) * distance;
+    
+    document.body.appendChild(sparkle);
+    
+    sparkle.animate([
+      { 
+        left: centerX + 'px', 
+        top: centerY + 'px', 
+        opacity: 1,
+        transform: 'scale(0.5)'
+      },
+      { 
+        left: endX + 'px', 
+        top: endY + 'px', 
+        opacity: 0,
+        transform: 'scale(1.2)'
+      }
+    ], {
+      duration: 600,
+      easing: 'ease-out'
+    });
+    
+    setTimeout(() => sparkle.remove(), 600);
+  }
 }
 
 /* S5 - ENVELOPE SCREEN */
