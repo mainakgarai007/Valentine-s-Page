@@ -156,68 +156,85 @@ function animateBalloonSequence() {
   const text3 = document.getElementById('text3');
   const finalMessage = document.getElementById('finalMessage');
   
-  // Balloon 1: Float up → pause → blast → show "I"
-  setTimeout(() => {
-    balloon1.style.animation = 'balloonFloatUp 1.5s ease-out forwards';
-  }, 300);
+  // Animation timing constants (in milliseconds)
+  const FLOAT_DURATION = 1500;
+  const HOVER_DURATION = 1500;
+  const BLAST_DURATION = 500;
+  const TEXT_DELAY = 500;
+  const BALLOON_DELAY = 600;
+  const INITIAL_DELAY = 300;
   
+  // Balloon 1: Float up → pause → blast → show "I"
+  let time = INITIAL_DELAY;
+  setTimeout(() => {
+    balloon1.style.animation = `balloonFloatUp ${FLOAT_DURATION}ms ease-out forwards`;
+  }, time);
+  
+  time += FLOAT_DURATION;
   setTimeout(() => {
     balloon1.style.animation = 'balloonHover 2s ease-in-out infinite';
-  }, 1800);
+  }, time);
   
+  time += HOVER_DURATION;
   setTimeout(() => {
-    balloon1.style.animation = 'balloonBlast 0.5s ease-out forwards';
-    // Add sparkle effect
+    balloon1.style.animation = `balloonBlast ${BLAST_DURATION}ms ease-out forwards`;
     createSparkles(balloon1);
-  }, 3300);
+  }, time);
   
+  time += TEXT_DELAY;
   setTimeout(() => {
     text1.style.animation = 'textAppear 0.6s ease-out forwards';
-    text1.style.opacity = '1';
-  }, 3800);
+  }, time);
   
   // Balloon 2: Float up → pause → blast → show "Love"
+  time += BALLOON_DELAY;
   setTimeout(() => {
-    balloon2.style.animation = 'balloonFloatUp 1.5s ease-out forwards';
-  }, 4400);
+    balloon2.style.animation = `balloonFloatUp ${FLOAT_DURATION}ms ease-out forwards`;
+  }, time);
   
+  time += FLOAT_DURATION;
   setTimeout(() => {
     balloon2.style.animation = 'balloonHover 2s ease-in-out infinite';
-  }, 5900);
+  }, time);
   
+  time += HOVER_DURATION;
   setTimeout(() => {
-    balloon2.style.animation = 'balloonBlast 0.5s ease-out forwards';
+    balloon2.style.animation = `balloonBlast ${BLAST_DURATION}ms ease-out forwards`;
     createSparkles(balloon2);
-  }, 7400);
+  }, time);
   
+  time += TEXT_DELAY;
   setTimeout(() => {
     text2.style.animation = 'textAppear 0.6s ease-out forwards';
-    text2.style.opacity = '1';
-  }, 7900);
+  }, time);
   
   // Balloon 3: Float up → pause → blast → show "You"
+  time += BALLOON_DELAY;
   setTimeout(() => {
-    balloon3.style.animation = 'balloonFloatUp 1.5s ease-out forwards';
-  }, 8500);
+    balloon3.style.animation = `balloonFloatUp ${FLOAT_DURATION}ms ease-out forwards`;
+  }, time);
   
+  time += FLOAT_DURATION;
   setTimeout(() => {
     balloon3.style.animation = 'balloonHover 2s ease-in-out infinite';
-  }, 10000);
+  }, time);
   
+  time += HOVER_DURATION;
   setTimeout(() => {
-    balloon3.style.animation = 'balloonBlast 0.5s ease-out forwards';
+    balloon3.style.animation = `balloonBlast ${BLAST_DURATION}ms ease-out forwards`;
     createSparkles(balloon3);
-  }, 11500);
+  }, time);
   
+  time += TEXT_DELAY;
   setTimeout(() => {
     text3.style.animation = 'textAppear 0.6s ease-out forwards';
-    text3.style.opacity = '1';
-  }, 12000);
+  }, time);
   
   // Show final message and button after all balloons are done
+  time += 800;
   setTimeout(() => {
     finalMessage.style.opacity = '1';
-  }, 12800);
+  }, time);
 }
 
 function createSparkles(balloon) {
