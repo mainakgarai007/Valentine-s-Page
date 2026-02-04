@@ -2,26 +2,72 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Something Special 💖</title>
+  <title>Just For You ❤️</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
 
-<!-- 🎵 Background Music -->
-<audio id="bgMusic" src="assets/music/bg-music.mp3" autoplay loop></audio>
+<audio id="bgMusic" src="assets/music/bg-music.mp3" loop></audio>
 
-<!-- 🌧️ Background Effects -->
-<div class="rain"></div>
-<div class="hearts"></div>
+<div id="rain"></div>
+<div id="hearts"></div>
 
-<!-- 📱 APP -->
-<div id="app"></div>
+<div id="app">
 
-<!-- 📩 Footer Email -->
-<footer>
-  <a href="mailto:mainakgarai007@gmail.com">mainakgarai007@gmail.com</a>
-</footer>
+  <!-- SCREEN 1 : MEMORIES -->
+  <section class="screen active" id="memories">
+    <h2>This is what I wanted to say for so long...</h2>
+    <div class="gallery">
+      <img src="assets/memories/img1.jpg">
+      <img src="assets/memories/img2.jpg">
+      <img src="assets/memories/img3.jpg">
+      <img src="assets/memories/img4.jpg">
+    </div>
+    <button onclick="nextScreen()">Continue ❤️</button>
+  </section>
+
+  <!-- SCREEN 2 : ENVELOPE -->
+  <section class="screen" id="envelope">
+    <img class="envelope" src="assets/icons/envelope.png">
+    <h2>This is just for <span>you</span>...</h2>
+    <button onclick="nextScreen()">💌 Tap to see what's inside</button>
+  </section>
+
+  <!-- SCREEN 3 : LETTER -->
+  <section class="screen" id="letter">
+    <div class="letter-box">
+      <p>
+        Every challenge feels easier because I imagine you by my side.<br><br>
+        You are not just my friend, you're the most special part of my life.<br><br>
+        You make me smile, you make my heart race,
+        and you make me want to be a better version of myself.<br><br>
+        I want that future with you.
+      </p>
+    </div>
+    <h3>So, will you be mine forever?</h3>
+    <button onclick="nextScreen()">💖 Yes, forever!</button>
+  </section>
+
+  <!-- SCREEN 4 : HEART CONNECT -->
+  <section class="screen" id="heart">
+    <div class="heart-container">
+      <img id="broken" src="assets/icons/broken_heart.png">
+      <img id="full" src="assets/icons/heart.png">
+    </div>
+  </section>
+
+  <!-- SCREEN 5 : FINAL -->
+  <section class="screen" id="final">
+    <h1 class="final-text">Forever starts with us ✨</h1>
+    <p class="email">
+      <a href="mailto:mainakgarai007@gmail.com">
+        mainakgarai007@gmail.com
+      </a>
+    </p>
+  </section>
+
+</div>
 
 <script src="script.js"></script>
 </body>
