@@ -363,10 +363,10 @@ img.char {
 
 @keyframes stringSwing {
   0%, 100% {
-    transform: translateX(-50%) rotate(45deg) rotate(-2deg);
+    transform: translateX(-50%) rotate(43deg);
   }
   50% {
-    transform: translateX(-50%) rotate(45deg) rotate(2deg);
+    transform: translateX(-50%) rotate(47deg);
   }
 }
 
