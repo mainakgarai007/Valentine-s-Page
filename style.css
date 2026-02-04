@@ -324,10 +324,10 @@ img.char {
   bottom: -60px;
   left: 50%;
   transform: translateX(-50%) rotate(45deg);
+  transform-origin: top center;
   width: 2px;
   height: 60px;
   background: linear-gradient(to bottom, rgba(255, 255, 255, 0.6), rgba(255, 255, 255, 0.2));
-  transform-origin: top center;
   animation: stringSwing 2s ease-in-out infinite;
   z-index: -1;
 }
@@ -363,10 +363,10 @@ img.char {
 
 @keyframes stringSwing {
   0%, 100% {
-    transform: translateX(-50%) rotate(43deg);
+    transform: translateX(-50%) rotate(45deg) rotate(-2deg);
   }
   50% {
-    transform: translateX(-50%) rotate(47deg);
+    transform: translateX(-50%) rotate(45deg) rotate(2deg);
   }
 }
 
