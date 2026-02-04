@@ -118,17 +118,23 @@ function s4() {
     <h2 class="fade">This is what I wanted to say for so long…</h2>
     <p class="fade">Watch the balloons carry my message to you</p>
     <div class="balloons">
-      <div class="balloon" id="balloon1">
-        <span id="text1">I</span>
-        <div class="balloon-string"></div>
+      <div style="position: relative; width: 80px;">
+        <div class="balloon" id="balloon1">
+          <div class="balloon-string"></div>
+        </div>
+        <span class="balloon-text" id="text1">I</span>
       </div>
-      <div class="balloon" id="balloon2">
-        <span id="text2">Love</span>
-        <div class="balloon-string"></div>
+      <div style="position: relative; width: 80px;">
+        <div class="balloon" id="balloon2">
+          <div class="balloon-string"></div>
+        </div>
+        <span class="balloon-text" id="text2">Love</span>
       </div>
-      <div class="balloon" id="balloon3">
-        <span id="text3">You</span>
-        <div class="balloon-string"></div>
+      <div style="position: relative; width: 80px;">
+        <div class="balloon" id="balloon3">
+          <div class="balloon-string"></div>
+        </div>
+        <span class="balloon-text" id="text3">You</span>
       </div>
     </div>
     <div id="finalMessage" style="opacity: 0; margin-top: 30px; transition: opacity 1s;">
@@ -167,6 +173,7 @@ function animateBalloonSequence() {
   
   setTimeout(() => {
     text1.style.animation = 'textAppear 0.6s ease-out forwards';
+    text1.style.opacity = '1';
   }, 3800);
   
   // Balloon 2: Float up → pause → blast → show "Love"
@@ -185,6 +192,7 @@ function animateBalloonSequence() {
   
   setTimeout(() => {
     text2.style.animation = 'textAppear 0.6s ease-out forwards';
+    text2.style.opacity = '1';
   }, 7900);
   
   // Balloon 3: Float up → pause → blast → show "You"
@@ -203,6 +211,7 @@ function animateBalloonSequence() {
   
   setTimeout(() => {
     text3.style.animation = 'textAppear 0.6s ease-out forwards';
+    text3.style.opacity = '1';
   }, 12000);
   
   // Show final message and button after all balloons are done

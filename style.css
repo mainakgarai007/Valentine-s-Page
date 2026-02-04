@@ -354,6 +354,21 @@ img.char {
   opacity: 0;
 }
 
+/* Text that appears after balloon pops */
+.balloon-text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 10;
+  color: #fff;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+  opacity: 0;
+  font-size: 1.3rem;
+  font-weight: 600;
+  pointer-events: none;
+}
+
 /* Float up animation */
 @keyframes balloonFloatUp {
   0% {
@@ -399,14 +414,14 @@ img.char {
 @keyframes textAppear {
   0% {
     opacity: 0;
-    transform: rotate(45deg) scale(0.5);
+    transform: translate(-50%, -50%) scale(0.5);
   }
   50% {
-    transform: rotate(45deg) scale(1.1);
+    transform: translate(-50%, -50%) scale(1.1);
   }
   100% {
     opacity: 1;
-    transform: rotate(45deg) scale(1);
+    transform: translate(-50%, -50%) scale(1);
   }
 }
 
