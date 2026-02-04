@@ -103,9 +103,9 @@ function s4() {
     <h2 class="fade">This is what I wanted to say for so long…</h2>
     <p class="fade">Watch the balloons carry my message to you</p>
     <div class="balloons">
-      <div class="balloon">I</div>
-      <div class="balloon">Love</div>
-      <div class="balloon">You</div>
+      <div class="balloon"><span>I</span></div>
+      <div class="balloon"><span>Love</span></div>
+      <div class="balloon"><span>You</span></div>
     </div>
     <p class="fade" style="margin-top:30px">There's more I want to show you…</p>
     <button class="btn" onclick="s5()">Continue →</button>
