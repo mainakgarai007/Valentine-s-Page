@@ -1,143 +1,190 @@
 const app = document.getElementById("app");
 const music = document.getElementById("bgMusic");
-music.volume = 0.5;
+music.volume = 0.3;
 
-function show(html){
+// Initialize rain and hearts animation
+function initBackgroundAnimations() {
+  const rain = document.createElement('div');
+  rain.className = 'rain';
+  for (let i = 0; i < 30; i++) {
+    const drop = document.createElement('div');
+    drop.className = 'raindrop';
+    drop.style.left = Math.random() * 100 + '%';
+    drop.style.animationDuration = (Math.random() * 1 + 0.5) + 's';
+    drop.style.animationDelay = Math.random() * 2 + 's';
+    rain.appendChild(drop);
+  }
+  document.body.appendChild(rain);
+
+  const hearts = document.createElement('div');
+  hearts.className = 'hearts';
+  for (let i = 0; i < 15; i++) {
+    const heart = document.createElement('div');
+    heart.className = 'heart';
+    heart.textContent = '💗';
+    heart.style.left = Math.random() * 100 + '%';
+    heart.style.fontSize = (Math.random() * 10 + 15) + 'px';
+    heart.style.animationDuration = (Math.random() * 5 + 8) + 's';
+    heart.style.animationDelay = Math.random() * 5 + 's';
+    hearts.appendChild(heart);
+  }
+  document.body.appendChild(hearts);
+}
+
+function show(html) {
   app.innerHTML = html;
 }
 
-function startMusic(){
-  if(music.paused) music.play();
+function startMusic() {
+  if (music.paused) {
+    music.play().catch(e => {
+      // Auto-play might be blocked, will play on first user interaction
+      document.addEventListener('click', () => music.play(), { once: true });
+    });
+  }
 }
 
-/* S0.5 Panda Intro */
-function s0(){
+/* S0.5 - PANDA INTRO */
+function s0() {
   startMusic();
   show(`
-    <img src="assets/characters/panda_intro.png" class="char fade">
-    <h1 class="fade">Let’s make it worth it…</h1>
+    <img src="assets/characters/panda_intro.png" class="char float blink fade">
+    <h1 class="fade">Let's make it worth it…</h1>
     <h2 class="fade">Forever ✨</h2>
   `);
   app.onclick = s1;
-  setTimeout(s1,5000);
+  setTimeout(s1, 5000);
 }
 
-/* S1 Bear */
-function s1(){
-  app.onclick=null;
+/* S1 - BEAR INTRO */
+function s1() {
+  app.onclick = null;
   show(`
-    <img src="assets/characters/bear_flower.png" class="char fade">
-    <h2>I have something special to tell you…</h2>
-    <p>Something that could change everything ✨</p>
+    <img src="assets/characters/bear_flower.png" class="char float fade">
+    <h2 class="fade">I have something special to tell you…</h2>
+    <p class="fade">Something that could change everything ✨</p>
     <button class="btn" onclick="s2()">Tap to Begin</button>
   `);
 }
 
-/* S2 Surprise */
-function s2(){
+/* S2 - QUESTION 1 */
+function s2() {
   show(`
-    <h2>Do you like surprises?</h2>
+    <h2 class="fade">Do you like surprises?</h2>
+    <p class="fade">Trust me on this…</p>
     <button class="btn" onclick="s3()">Yes ❤️</button>
     <button class="btn" onclick="s3()">No 😌</button>
   `);
 }
 
-/* S3 Like me */
-function s3(){
+/* S3 - QUESTION 2 */
+function s3() {
   show(`
-    <h2>Do you like me?</h2>
-    <button class="btn" onclick="balloons()">Yes 🌸</button>
-    <button class="btn" onclick="sad()">No 😔</button>
+    <h2 class="fade">Do you like me?</h2>
+    <p class="fade">Be honest with me…</p>
+    <button class="btn" onclick="s4()">Yes 🌸</button>
+    <button class="btn" onclick="s3_5()">No 😔</button>
   `);
 }
 
-/* S3.5 Sad */
-function sad(){
+/* S3.5 - IF NO CLICKED */
+function s3_5() {
   show(`
-    <img src="assets/characters/panda_sad.png" class="char fade">
-    <h2>Please say yes…</h2>
-    <p>I really hope you do 🤍</p>
-    <button class="btn" onclick="balloons()">Yes ❤️</button>
+    <img src="assets/characters/panda_sad.png" class="char float blink fade">
+    <h2 class="fade">Please say yes…</h2>
+    <p class="fade">I really hope you do 🤍</p>
+    <button class="btn" onclick="s4()">Yes ❤️</button>
   `);
 }
 
-/* S4 Balloons */
-function balloons(){
+/* S4 - HEART BALLOON CONFESSION */
+function s4() {
   show(`
-    <h2>This is what I wanted to say for so long…</h2>
-    <p>Watch the balloons carry my message to you</p>
+    <h2 class="fade">This is what I wanted to say for so long…</h2>
+    <p class="fade">Watch the balloons carry my message to you</p>
     <div class="balloons">
       <div class="balloon">I</div>
       <div class="balloon">Love</div>
       <div class="balloon">You</div>
     </div>
-    <p style="margin-top:30px">There’s more I want to show you…</p>
-    <button class="btn" onclick="envelope()">Continue →</button>
+    <p class="fade" style="margin-top:30px">There's more I want to show you…</p>
+    <button class="btn" onclick="s5()">Continue →</button>
   `);
 }
 
-/* S5 Envelope */
-function envelope(){
+/* S5 - ENVELOPE SCREEN */
+function s5() {
   show(`
-    <h2>This is just for you…</h2>
-    <button class="btn" onclick="preLetter()">❤️ Tap to see what’s inside</button>
+    <div class="envelope">💌</div>
+    <h2 class="fade">This is just for you…</h2>
+    <button class="btn" onclick="s5_5()">Tap to see what's inside</button>
   `);
 }
 
-/* Pre Letter */
-function preLetter(){
+/* S5.5 - PRE-LETTER CALM SCREEN */
+function s5_5() {
   show(`
-    <h2>Before you read this…</h2>
-    <p>This comes straight from my heart 🤍</p>
+    <h2 class="line">Before you read this…</h2>
+    <p class="line">I just want you to know something.</p>
+    <p class="line">This comes straight from my heart 🤍</p>
   `);
-  setTimeout(letter,3000);
+  setTimeout(s6, 3500);
 }
 
-/* Letter */
-function letter(){
+/* S6 - LETTER SCREEN */
+function s6() {
   show(`
-    <p>
-      Every challenge feels easier when I imagine you by my side.<br><br>
-      You’re not just my friend, you’re the most special part of my life.<br><br>
-      I don’t know what the future holds,<br>
-      but I want that future with you.
-    </p>
-    <h3>So, will you be mine forever?</h3>
-    <button class="btn" onclick="heart()">Yes, forever 💖</button>
-  `);
-}
-
-/* Heart connect */
-function heart(){
-  show(`
-    <img src="assets/icons/broken_heart.png" class="char fade">
-  `);
-  setTimeout(()=>{
-    show(`<img src="assets/icons/heart.png" class="char fade">`);
-    setTimeout(memories,2500);
-  },2000);
-}
-
-/* Memories */
-function memories(){
-  show(`
-    <h2>Some memories…</h2>
-    <div class="memories">
-      <img src="assets/memories/img1.jpg">
-      <img src="assets/memories/img2.jpg">
-      <img src="assets/memories/img3.jpg">
-      <img src="assets/memories/img4.jpg">
+    <div class="letter-card">
+      <p class="text-block">Every challenge feels easier<br>when I imagine you by my side.</p>
+      <p class="text-block">You're not just my friend,<br>you're the most special part of my life.</p>
+      <p class="text-block">I don't know what the future holds,<br>but I want that future with you.</p>
     </div>
-    <button class="btn" onclick="end()">Continue</button>
+    <h3 class="fade">So, will you be mine forever?</h3>
+    <button class="btn" onclick="s7()">Yes, forever 💖</button>
   `);
 }
 
-/* End */
-function end(){
-  document.querySelector(".email").style.display="none";
-  show(`<h1>Forever starts now ✨</h1>`);
-  music.volume = 0.2;
+/* S7 - HEART CONNECT ANIMATION */
+function s7() {
+  show(`<div class="heart-animate">💔</div>`);
+  setTimeout(() => {
+    show(`<div class="heart-animate">❤️</div>`);
+    setTimeout(s8, 2500);
+  }, 2000);
+}
+
+/* S8 - MEMORIES */
+function s8() {
+  show(`
+    <h2 class="fade">Some memories…</h2>
+    <div class="memories">
+      <img src="assets/memories/img1.jpg" alt="Memory 1">
+      <img src="assets/memories/img2.jpg" alt="Memory 2">
+      <img src="assets/memories/img3.jpg" alt="Memory 3">
+      <img src="assets/memories/img4.jpg" alt="Memory 4">
+    </div>
+    <button class="btn" onclick="s9()">Continue</button>
+  `);
+}
+
+/* S9 - FINAL END SCREEN */
+function s9() {
+  document.querySelector(".email").style.display = "none";
+  show(`<h1 class="fade">Forever starts now ✨</h1>`);
+  
+  // Fade out music
+  let vol = music.volume;
+  const fadeOut = setInterval(() => {
+    if (vol > 0.05) {
+      vol -= 0.05;
+      music.volume = vol;
+    } else {
+      music.volume = 0;
+      clearInterval(fadeOut);
+    }
+  }, 200);
 }
 
 /* START */
+initBackgroundAnimations();
 s0();
